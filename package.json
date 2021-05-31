@@ -1,0 +1,32 @@
+{
+  "name": "automation",
+  "version": "1.0.0",
+  "description": "TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project.",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "delete:reportFolder": "rm -rf mochawesome-report/",
+    "test:cli": "npm run delete:reportFolder && cypress run",
+    "merge:reports": "mochawesome-merge mochawesome-report/*.json > cypress-combined-report.json",
+    "create:html:report": "npm run merge:reports && marge --reportDir TestReport cypress-combined-report.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^6.9.1",
+    "mocha": "^8.3.2",
+    "mochawesome": "^6.2.2",
+    "mochawesome-merge": "^4.2.0",
+    "mochawesome-report-generator": "^5.2.0"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoang-mission-plus/design-system-cypress.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hoang-mission-plus/design-system-cypress/issues"
+  },
+  "homepage": "https://github.com/hoang-mission-plus/design-system-cypress#readme"
+}
