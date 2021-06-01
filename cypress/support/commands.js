@@ -9,8 +9,47 @@
 // ***********************************************
 ///<reference types="Cypress" />
 
-Cypress.Commands.add('forceClick', { prevSubject: 'element' }, (subject, options) => {
-  cy.wrap(subject, { timeout: 10000 }).click({ force: true, multiple: true })
+Cypress.Commands.add('getIframeBody', () => {
+  return cy
+  .get('#storybook-preview-iframe', { log: false })
+  .its('0.contentDocument.body', { log: false }).should('not.be.empty')
+  .then((body) => cy.wrap(body, { log: false }))
+})
+
+Cypress.Commands.add('getStylesForStorybook', (data, selector) => {
+  return cy.getIframeBody().find(selector).then((elements) => {
+    const styles = []
+    elements.each((_, $el) => {
+      let compStyles = window.getComputedStyle($el);
+      Object.keys(data).forEach(key => {
+        const item = {
+          prop: key,
+          value: compStyles.getPropertyValue(key)
+        }
+        styles.push(item)
+      });
+
+    });
+    return styles;
+  });
+})
+
+Cypress.Commands.add('getStyles', (data, selector) => {
+  return cy.get(selector).then((elements) => {
+    const styles = []
+    elements.each((_, $el) => {
+      let compStyles = window.getComputedStyle($el);
+      Object.keys(data).forEach(key => {
+        const item = {
+          prop: key,
+          value: compStyles.getPropertyValue(key)
+        }
+        styles.push(item)
+      });
+
+    });
+    return styles;
+  });
 })
 
 Cypress.Commands.overwrite('type', (originalFn, element, text, options) => {

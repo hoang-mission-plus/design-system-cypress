@@ -1,4 +1,5 @@
 {
+    "baseUrl": "https://rt-commercial-eng.github.io/rt-design-system",
     "reporter": "../node_modules/mochawesome/src/mochawesome.js",
     "reporterOptions": {
         "overwrite": false,
