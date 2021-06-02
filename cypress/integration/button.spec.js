@@ -1,21 +1,22 @@
+import Button from "../support/Page Objects/button"
 
+describe('Button', function () {
 
-describe('Button', () => {
-  beforeEach(() => {
+  beforeEach(function () {
     cy.visit('/')
-    cy.get('#component-button--button').click()
+    this.button = new Button();
+    this.button.getComponentButton().click()
     cy.fixture('base-button.json').as('data')
   })
-  it('compare base button style', () => {
-    cy.get('@data').then((response) => {
-      cy.getStylesForStorybook(response, '.bp3-button').then(styles => {
-        styles.forEach(style => {
-          const newStyle = `${style.prop}: ${response[style.prop]}`
-          const currentStyle = `${style.prop}: ${style.value}`
-          expect(newStyle).to.equal(currentStyle)
-        })
-      })
-    })
+
+  it('compare base button style', function () {
+    this.button.getBaseButton().compareStyles(this.data.base_button);
+  });
+
+  it('compare base button style', function () {
+    cy.get('#disabled').click();
+    this.button.getBaseButton().should("have.class", "bp3-disabled")
+    this.button.getBaseButton().compareStyles(this.data.disabled_base_button);
   });
 
 })

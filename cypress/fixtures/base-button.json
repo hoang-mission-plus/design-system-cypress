@@ -1,4 +1,12 @@
 {
-    "padding": "4px 16px",
-    "text-align": "left"
+    "base_button": {
+        "padding": "4px 32px",
+        "text-align": "left",
+        "border-radius": "4px"
+    },
+    "disabled_base_button": {
+        "padding": "4px 32px",
+        "text-align": "left",
+        "border-radius": "4px"
+    }
 }
